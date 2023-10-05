@@ -37,3 +37,5 @@ C:\Users\AU0011ER\source\repos\CrudDapper\CrudDapper\obj\Debug\net6.0\refint\Cru
 C:\Users\AU0011ER\source\repos\CrudDapper\CrudDapper\obj\Debug\net6.0\CrudDapper.pdb
 C:\Users\AU0011ER\source\repos\CrudDapper\CrudDapper\obj\Debug\net6.0\CrudDapper.genruntimeconfig.cache
 C:\Users\AU0011ER\source\repos\CrudDapper\CrudDapper\obj\Debug\net6.0\ref\CrudDapper.dll
+C:\Users\AU0011ER\source\repos\CrudDapper\CrudDapper\bin\Debug\net6.0\Models.dll
+C:\Users\AU0011ER\source\repos\CrudDapper\CrudDapper\bin\Debug\net6.0\Models.pdb

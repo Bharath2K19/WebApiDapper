@@ -40,6 +40,24 @@ namespace CrudDapper.Controllers
             return Ok("Done");
         }
 
-        
+        [HttpPut]
+
+        public async Task<ActionResult<List<Users>>> UpdateUsers(Users user)
+        {
+            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            await connection.ExecuteAsync($"UPDATE Users SET UserName='{user.UserName}',Email='{user.Email}' WHERE UserId='{user.UserId}'");
+            return Ok("Done");
+        }
+
+        [HttpDelete("{UserId}")]
+
+        public async Task<ActionResult<List<Users>>> DeleteById(int UserId)
+        {
+            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            await connection.ExecuteAsync($"Delete from users where UserId={UserId}");
+            return Ok("Deleted Successfull");
+        }
+
+
     }
 }
