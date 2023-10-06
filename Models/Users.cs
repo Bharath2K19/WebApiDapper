@@ -8,5 +8,13 @@
 
         public string Email { get; set; }
 
+        //Age -> Int
+
+        //Phone Number -> string
+
+        //Address 1 -> string 
+        //City -> string
+        //Pincode -> string
+
     }
 }

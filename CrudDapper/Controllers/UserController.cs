@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using CrudDapper.Handlers;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
@@ -10,53 +11,49 @@ namespace CrudDapper.Controllers
     public class UserController : ControllerBase
     {
         private readonly IConfiguration _config;
+        private readonly IUserHandler _userHandler;
 
-        public UserController(IConfiguration config)
+        public UserController(IConfiguration config, IUserHandler userHandler)
         {
             _config = config;
+            _userHandler = userHandler;
         }
         [HttpGet]
         public async Task<ActionResult<List<Users>>> GetAllUsers()
         {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            using var command = connection.QueryAsync<Users>("select * from users");
-            return Ok(command.Result);
+            var command = await _userHandler.GetUsers();
+            return Ok(command);
         }
         [HttpGet("{UserId}")]
 
-        public async Task<ActionResult<List<Users>>> GetById(int UserId)
+        public async Task<ActionResult<Users>> GetById(int UserId)
         {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            using var command = connection.QueryAsync<Users>($"select * from users where UserId={UserId}");
-            return Ok(command.Result);
+            var command = await _userHandler.GetById(UserId);
+            return Ok(command);
         }
 
         [HttpPost]
 
-        public async Task<ActionResult<List<Users>>> CreateUsers(Users user)
+        public async Task CreateUsers(Users user)
         {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            await connection.ExecuteAsync($"INSERT INTO Users (UserId, UserName, Email) VALUES ('{user.UserId}','{user.UserName}','{user.Email}')");
-            return Ok("Done");
+            await _userHandler.CreateUser(user);
         }
 
         [HttpPut]
 
-        public async Task<ActionResult<List<Users>>> UpdateUsers(Users user)
+        public async Task UpdateUsers(Users user)
         {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            await connection.ExecuteAsync($"UPDATE Users SET UserName='{user.UserName}',Email='{user.Email}' WHERE UserId='{user.UserId}'");
-            return Ok("Done");
+            await _userHandler.UpdateUser(user);
+           
         }
 
         [HttpDelete("{UserId}")]
 
-        public async Task<ActionResult<List<Users>>> DeleteById(int UserId)
+        public async Task DeleteById(int UserId)
         {
-            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            await connection.ExecuteAsync($"Delete from users where UserId={UserId}");
-            return Ok("Deleted Successfull");
+            await _userHandler.DeleteUser(UserId);
         }
+
 
 
     }

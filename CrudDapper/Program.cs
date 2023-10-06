@@ -1,3 +1,6 @@
+using CrudDapper.Handlers;
+using CrudDapper.Repository;
+
 namespace CrudDapper
 {
     public class Program
@@ -5,6 +8,9 @@ namespace CrudDapper
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddTransient<IUserHandler, UserHandler>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
             // Add services to the container.
 
