@@ -12,6 +12,9 @@ namespace CrudDapper
             builder.Services.AddTransient<IUserHandler, UserHandler>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
 
+            // we have to add the IuserHandler and UserHandler
+            // we have to add the IUserRepository and UserRepository
+
             // Add services to the container.
 
             builder.Services.AddControllers();
